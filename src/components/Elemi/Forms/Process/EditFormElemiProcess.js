@@ -1,0 +1,2333 @@
+import { useState } from "react";
+
+// other import file
+import useFocusNext from "../../../../helper/hooks/focusNext";
+import { useElemiProcessContext } from "../../../../context/elemi/forms/elemiProcessContext";
+
+// muis
+import {
+  Typography,
+  Paper,
+  Grid,
+  TextareaAutosize,
+  TextField,
+  Button,
+  Dialog,
+} from "@mui/material";
+import { styled } from "@mui/system";
+import CloseIcon from "@mui/icons-material/Close";
+import LinearProgress from "@mui/material/LinearProgress";
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 6,
+}));
+
+const StyledTable = styled("table")({
+  borderCollapse: "collapse",
+  width: "100%",
+  border: "1px solid black",
+});
+const StyledTh = styled("th")({
+  border: "1px solid black",
+  paddingRight: "5px",
+  paddingLeft: "5px",
+});
+const StyledTd = styled("td")({
+  border: "1px solid black",
+  paddingRight: "5px",
+  paddingLeft: "5px",
+});
+
+const EditFormElemiProcess = (props) => {
+  const { open } = props;
+  const theFocusNext = useFocusNext();
+  const theElemiProcessContext = useElemiProcessContext();
+  // const [obj, setObj] = useState({});
+
+  const createCloseHandler = () => {
+    theElemiProcessContext.setActiveModal("");
+  };
+
+  const handleInputChange = (gname = "", e) => {
+    theElemiProcessContext.onChange(gname, e.target);
+  };
+
+  const handleInput2Change = (gname = "", e) => {
+    theElemiProcessContext.onChange2(gname, e.target);
+  };
+
+  const handleOnSubmit = (e) => {
+    theElemiProcessContext.updateProcess();
+  };
+
+  return (
+    <Dialog fullScreen open={open}>
+      <Paper sx={{ position: "relative", padding: "10px" }}>
+        <CloseIcon
+          onClick={createCloseHandler}
+          sx={{
+            cursor: "pointer",
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+          }}
+        />
+
+        <Grid container direction="column" sx={{ gap: "10px" }}>
+          <Grid item container direction="row">
+            <Grid item container xs></Grid>
+            <Grid item container xs direction="column">
+              <Grid item xs>
+                <Typography
+                  viriant="h6"
+                  component="div"
+                  sx={{
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Standard Operating Procedures
+                </Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography
+                  viriant="h4"
+                  component="div"
+                  sx={{
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Elemi Distillation
+                </Typography>
+              </Grid>
+              <Grid item xs sx={{ marginTop: "2rem" }}>
+                <Typography
+                  viriant="h4"
+                  component="div"
+                  sx={{
+                    textTransform: "uppercase",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Appendix 6: Elemi Distillation Record
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item container xs direction="column">
+              {/* Document No. */}
+            </Grid>
+          </Grid>
+
+          <Grid
+            item
+            container
+            direction="row"
+            sx={{ lg: { gap: "0" }, md: { gap: "10px" } }}
+          >
+            <Grid item xs={12} md={6}>
+              <StyledTable>
+                <tbody>
+                  <tr>
+                    <StyledTd sx={{ fontWeight: "bold", width: "200px" }}>
+                      Date
+                    </StyledTd>
+                    <StyledTd
+                      contentEditable
+                      ref={theFocusNext}
+                      onBlur={(e) => handleInputChange("date", e)}
+                      suppressContentEditableWarning={true}
+                    >
+                      {theElemiProcessContext.jsonObject?.date}
+                    </StyledTd>
+                  </tr>
+                  <tr>
+                    <StyledTd sx={{ fontWeight: "bold", width: "200px" }}>
+                      Oil Batch Number
+                    </StyledTd>
+                    <StyledTd
+                      contentEditable
+                      ref={theFocusNext}
+                      onBlur={(e) => handleInput2Change("oilBatchNumber", e)}
+                      suppressContentEditableWarning={true}
+                    >
+                      {theElemiProcessContext.selected?.oilBatchNumber}
+                    </StyledTd>
+                  </tr>
+                  <tr>
+                    <StyledTd sx={{ fontWeight: "bold", width: "200px" }}>
+                      Oil Batch Number Format
+                    </StyledTd>
+                    <StyledTd>
+                      IB-EF-YYYYMMDD-Distilation Vessel No- Distillation Batch
+                      No
+                    </StyledTd>
+                  </tr>
+                </tbody>
+              </StyledTable>
+            </Grid>
+            <Grid item xs>
+              <StyledTable>
+                <tbody>
+                  <tr>
+                    <StyledTd sx={{ fontWeight: "bold", width: "200px" }}>
+                      Vessel No.
+                    </StyledTd>
+                    <StyledTd
+                      contentEditable
+                      ref={theFocusNext}
+                      onBlur={(e) => handleInputChange("vessel_number", e)}
+                      suppressContentEditableWarning={true}
+                    >
+                      {theElemiProcessContext.jsonObject?.vessel_number}
+                    </StyledTd>
+                  </tr>
+                  <tr>
+                    <StyledTd sx={{ fontWeight: "bold", width: "200px" }}>
+                      Person in Charge
+                    </StyledTd>
+                    <StyledTd
+                      contentEditable
+                      ref={theFocusNext}
+                      onBlur={(e) => handleInputChange("person_in_charge", e)}
+                      suppressContentEditableWarning={true}
+                    >
+                      {theElemiProcessContext.jsonObject?.person_in_charge}
+                    </StyledTd>
+                  </tr>
+                  <tr>
+                    <StyledTd sx={{ fontWeight: "bold", width: "200px" }}>
+                      Operators
+                    </StyledTd>
+                    <StyledTd
+                      contentEditable
+                      ref={theFocusNext}
+                      onBlur={(e) => handleInputChange("operator_1", e)}
+                      suppressContentEditableWarning={true}
+                    >
+                      {theElemiProcessContext.jsonObject?.operator_1 ?? "n/a"}
+                    </StyledTd>
+                  </tr>
+                  <tr>
+                    <StyledTd></StyledTd>
+                    <StyledTd
+                      contentEditable
+                      ref={theFocusNext}
+                      onBlur={(e) => handleInputChange("operator_2", e)}
+                      suppressContentEditableWarning={true}
+                    >
+                      {theElemiProcessContext.jsonObject?.operator_2 ?? "n/a"}
+                    </StyledTd>
+                  </tr>
+                </tbody>
+              </StyledTable>
+            </Grid>
+          </Grid>
+
+          <Grid item container direction="row" sx={{ gap: "10px" }}>
+            <Grid
+              item
+              xl={3}
+              lg={4}
+              md={3}
+              xs={12}
+              container
+              direction="column"
+              sx={{ gap: "10px" }}
+            >
+              <Grid item xs>
+                <StyledTable>
+                  <tbody>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Resin Batch No.
+                      </StyledTd>
+                      <StyledTd sx={{ fontWeight: "bold" }}>Weight</StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("resin_batch_no_1", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.resin_batch_no_1 ??
+                          "n/a"}
+                      </StyledTd>
+                      <StyledTd
+                        sx={{ textAlign: "right" }}
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("resin_weight_count_1", e)
+                        }
+                        suppressContentEditableWarning={true}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.resin_weight_count_1 ?? "n/a"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("resin_batch_no_2", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.resin_batch_no_2 ??
+                          "n/a"}
+                      </StyledTd>
+                      <StyledTd
+                        sx={{ textAlign: "right" }}
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("resin_weight_count_2", e)
+                        }
+                        suppressContentEditableWarning={true}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.resin_weight_count_2 ?? "n/a"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("resin_batch_no_3", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.resin_batch_no_3 ??
+                          "n/a"}
+                      </StyledTd>
+                      <StyledTd
+                        sx={{ textAlign: "right" }}
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("resin_weight_count_3", e)
+                        }
+                        suppressContentEditableWarning={true}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.resin_weight_count_3 ?? "n/a"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("resin_batch_no_4", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.resin_batch_no_4 ??
+                          "n/a"}
+                      </StyledTd>
+                      <StyledTd
+                        sx={{ textAlign: "right" }}
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("resin_weight_count_4", e)
+                        }
+                        suppressContentEditableWarning={true}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.resin_weight_count_4 ?? "n/a"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", minWidth: "230px" }}>
+                        Total Resin Weight
+                      </StyledTd>
+                      <StyledTd sx={{ textAlign: "right" }}>
+                        {theElemiProcessContext.selected?.totalResinWeight ??
+                          "n/a"}
+                      </StyledTd>
+                    </tr>
+                  </tbody>
+                </StyledTable>
+              </Grid>
+              <Grid item xs>
+                <StyledTable>
+                  <tbody>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Process water volume
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("process_water_volume", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.process_water_volume ?? "L"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Time start boiler
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("time_start_boiler", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_start_boiler}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Time start resin loading
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("time_start_resin_loading", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {
+                          theElemiProcessContext.jsonObject
+                            ?.time_start_resin_loading
+                        }
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Time end resin loading
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("time_end_resin_loading", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {
+                          theElemiProcessContext.jsonObject
+                            ?.time_end_resin_loading
+                        }
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Time start distillation
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("time_start_distillation", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {
+                          theElemiProcessContext.jsonObject
+                            ?.time_start_distillation
+                        }
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Time end distillation
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("time_end_distillation", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {
+                          theElemiProcessContext.jsonObject
+                            ?.time_end_distillation
+                        }
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold", width: "230px" }}>
+                        Total diesel consumption
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInput2Change("fuelConsumed", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.selected?.fuelConsumed ?? "n/a"}
+                      </StyledTd>
+                    </tr>
+                  </tbody>
+                </StyledTable>
+              </Grid>
+            </Grid>
+
+            <Grid item xs container direction="column">
+              <Grid item xs>
+                <StyledTable>
+                  <thead>
+                    <tr>
+                      <StyledTh>Time</StyledTh>
+                      <StyledTh>T1: Jacket</StyledTh>
+                      <StyledTh>T2: Condenser</StyledTh>
+                      <StyledTh>T3: Inside Still</StyledTh>
+                      <StyledTh>Headers</StyledTh>
+                      <StyledTh>Flow Rate</StyledTh>
+                      <StyledTh>Oil Recovery</StyledTh>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0000", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0000 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0000", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0000 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0000", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0000 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0000", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0000 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0000", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0000 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0000", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0000 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0000", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0000 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0001", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0001 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0001", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0001 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0001", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0001 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0001", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0001 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0001", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0001 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0001", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0001 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0001", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0001 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0002", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0002 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0002", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0002 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0002", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0002 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0002", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0002 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0002", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0002 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0002", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0002 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0002", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0002 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0003", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0003 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0003", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0003 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0003", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0003 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0003", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0003 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0003", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0003 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0003", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0003 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0003", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0003 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0004", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0004 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0004", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0004 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0004", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0004 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0004", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0004 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0004", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0004 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0004", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0004 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0004", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0004 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0005", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0005 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0005", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0005 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0005", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0005 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0005", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0005 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0005", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0005 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0005", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0005 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0005", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0005 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0006", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0006 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0006", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0006 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0006", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0006 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0006", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0006 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0006", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0006 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0006", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0006 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0006", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0006 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0007", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0007 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0007", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0007 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0007", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0007 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0007", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0007 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0007", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0007 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0007", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0007 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0007", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0007 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0008", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0008 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0008", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0008 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0008", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0008 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0008", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0008 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0008", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0008 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0008", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0008 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0008", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0008 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0009", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0009 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0009", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0009 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0009", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0009 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0009", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0009 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0009", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0009 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0009", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0009 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0009", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0009 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0010", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0010 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0010", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0010 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0010", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0010 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0010", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0010 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0010", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0010 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0010", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0010 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0010", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0010 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0011", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0011 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0011", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0011 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0011", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0011 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0011", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0011 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0011", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0011 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0011", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0011 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0011", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0011 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0012", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0012 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0012", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0012 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0012", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0012 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0012", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0012 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0012", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0012 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0012", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0012 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0012", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0012 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0013", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0013 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0013", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0013 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0013", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0013 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0013", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0013 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0013", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0013 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0013", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0013 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0013", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0013 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0014", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0014 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0014", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0014 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0014", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0014 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0014", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0014 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0014", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0014 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0014", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0014 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0014", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0014 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0015", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0015 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0015", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0015 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0015", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0015 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0015", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0015 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0015", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0015 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0015", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0015 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0015", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0015 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0016", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0016 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0016", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0016 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0016", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0016 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0016", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0016 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0016", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0016 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0016", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0016 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0016", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0016 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0017", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0017 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0017", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0017 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0017", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0017 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0017", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0017 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0017", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0017 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0017", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0017 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0017", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0017 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0018", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0000 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0018", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0018 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0018", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0018 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0018", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0018 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0018", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0018 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0018", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0018 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0018", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0018 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0019", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0019 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0019", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0019 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0019", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0019 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0019", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0019 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0019", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0019 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0019", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0019 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0019", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0019 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0020", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0020 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0020", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0020 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0020", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0020 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0020", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0020 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0020", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0020 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0020", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0020 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0020", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0020 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("time_0021", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.time_0021 ?? ""}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("t1_jacket_0021", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t1_jacket_0021 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t2_condenser_0021", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.t2_condenser_0021 ??
+                          "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("t3_inside_still_0021", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject
+                          ?.t3_inside_still_0021 ?? "*C"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("header_0021", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.header_0021 ??
+                          "psi"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) => handleInputChange("flow_rate_0021", e)}
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.flow_rate_0021 ??
+                          "lpm"}
+                      </StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("oil_recovery_0021", e)
+                        }
+                        suppressContentEditableWarning={true}
+                        sx={{ textAlign: "right" }}
+                      >
+                        {theElemiProcessContext.jsonObject?.oil_recovery_0021 ??
+                          "g"}
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd sx={{ textAlign: "right" }}>
+                        {theElemiProcessContext.selected?.totalTime?.toFixed(
+                          2
+                        ) + " hrs" ?? "hrs"}
+                      </StyledTd>
+                      <StyledTd></StyledTd>
+                      <StyledTd></StyledTd>
+                      <StyledTd></StyledTd>
+                      <StyledTd></StyledTd>
+                      <StyledTd sx={{ textAlign: "right" }}>
+                        {theElemiProcessContext.selected?.averageFlowRate?.toFixed(
+                          2
+                        ) + ` ave lpm` ?? "ave lpm"}
+                      </StyledTd>
+                      <StyledTd sx={{ textAlign: "right" }}>
+                        {theElemiProcessContext.selected?.totalOilRecovery?.toFixed(
+                          2
+                        ) + ` total g` ?? "total g"}
+                      </StyledTd>
+                    </tr>
+                  </tbody>
+                </StyledTable>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid item xs container direction="column" sx={{ gap: "10px" }}>
+            <Grid item xs>
+              <TextareaAutosize
+                aria-label="empty textarea"
+                placeholder="Notes (Foreign material, power interruption)"
+                minRows={4}
+                maxRows={4}
+                name="notes"
+                value={theElemiProcessContext.jsonObject?.notes}
+                onChange={(e) => handleInputChange("", e)}
+                style={{
+                  // height: "calc(50vh - 60px)",
+                  width: "100%",
+                  resize: "none",
+                  borderRadius: "0.5rem",
+                  padding: "10px",
+                }}
+              />
+            </Grid>
+            <Grid item xs container direction="row" sx={{ gap: "50px" }}>
+              <Grid item xs>
+                <StyledTable>
+                  <tbody>
+                    <tr>
+                      <StyledTd sx={{ fontWeight: "bold" }}>
+                        Waste Type
+                      </StyledTd>
+                      <StyledTd sx={{ fontWeight: "bold" }}>
+                        Compliant Disposal
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd>Spent Resin</StyledTd>
+                      <StyledTd>
+                        {
+                          theElemiProcessContext.jsonObject
+                            ?.compliant_disposal_1
+                        }
+                      </StyledTd>
+                    </tr>
+                    <tr>
+                      <StyledTd>Hydrosol</StyledTd>
+                      <StyledTd
+                        contentEditable
+                        ref={theFocusNext}
+                        onBlur={(e) =>
+                          handleInputChange("compliant_disposal_2", e)
+                        }
+                        suppressContentEditableWarning={true}
+                      >
+                        {
+                          theElemiProcessContext.jsonObject
+                            ?.compliant_disposal_2
+                        }
+                      </StyledTd>
+                    </tr>
+                  </tbody>
+                </StyledTable>
+              </Grid>
+              <Grid item xs container direction="column" sx={{ gap: "10px" }}>
+                <Grid item xs>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    type="text"
+                    label="Operator"
+                    name="operator"
+                    value={theElemiProcessContext.jsonObject?.operator}
+                    onChange={(e) => handleInputChange("", e)}
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    type="text"
+                    label="Supervisor"
+                    name="supervisor"
+                    value={theElemiProcessContext.jsonObject?.supervisor}
+                    onChange={(e) => handleInputChange("", e)}
+                    variant="standard"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid item xs>
+            <Button
+              sx={{ cursor: "pointer", marginTop: "1.5rem" }}
+              onClick={(e) => handleOnSubmit(e)}
+              variant="contained"
+            >
+              Update
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+      {theElemiProcessContext.loading && (
+        <BorderLinearProgress color="success" />
+      )}
+    </Dialog>
+  );
+};
+
+export default EditFormElemiProcess;
